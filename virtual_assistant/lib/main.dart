@@ -42,23 +42,25 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Enable overlay"),
+                Text("Aktifkan aplikasi"),
                 ToggleSwitch()
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Refresh overlay"),
+                Text("Refresh aplikasi"),
               ],
+            ),
+            const ElevatedButton(
+              onPressed: null,
+              style: ButtonStyle(
+                backgroundColor: WidgetStatePropertyAll(Colors.lightBlueAccent)
+              ),
+              child: Text("Rekam suara")
             )
           ],
         ),
-      ),
-
-      floatingActionButton: const FloatingActionButton(
-        onPressed: null,
-        child: Icon(Icons.add),
       ),
     );
   }

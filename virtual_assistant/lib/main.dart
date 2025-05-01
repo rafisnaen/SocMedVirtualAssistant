@@ -45,14 +45,14 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Aktifkan aplikasi"),
+                Text("Activate overlay"),
                 ToggleSwitch()
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Refresh aplikasi"),
+                Text("Refresh overlay"),
               ],
             ),
             RecordButton()

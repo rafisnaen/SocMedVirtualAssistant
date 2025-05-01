@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'app_menu_handler/UI_handler/toggle_switch.dart';
+import 'app_menu_handler/UI_handler/record_button.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -12,6 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Virtual Assistant',
       home: MyHomePage(),
     );
@@ -52,13 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Text("Refresh aplikasi"),
               ],
             ),
-            const ElevatedButton(
-              onPressed: null,
-              style: ButtonStyle(
-                backgroundColor: WidgetStatePropertyAll(Colors.lightBlueAccent)
-              ),
-              child: Text("Rekam suara")
-            )
+            RecordButton()
           ],
         ),
       ),

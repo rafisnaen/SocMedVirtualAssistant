@@ -4,7 +4,7 @@ class ToggleSwitch extends StatefulWidget{
   const ToggleSwitch({super.key});
 
   @override
-  ToggleSwitchState createState() => ToggleSwitchState();
+  State<ToggleSwitch> createState() => ToggleSwitchState();
 }
 
 class ToggleSwitchState extends State<ToggleSwitch>{

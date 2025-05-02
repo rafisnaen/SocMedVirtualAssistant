@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'app_menu_handler/UI_handler/toggle_switch.dart';
+import 'app_menu_handler/UI_handler/record_button.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -12,6 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Virtual Assistant',
       home: MyHomePage(),
     );
@@ -30,19 +33,20 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        //Top part of application
         backgroundColor: Colors.lightBlueAccent,
         title: const Text('Virtual Assistant'),
       ),
 
-      body: const Padding(
+      body: const Padding( //Gives padding so that content has space from screen edge
         padding: EdgeInsets.all(20),
         child:
         Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween, //Space between text and button
               children: [
-                Text("Enable overlay"),
+                Text("Activate overlay"),
                 ToggleSwitch()
               ],
             ),
@@ -51,14 +55,10 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 Text("Refresh overlay"),
               ],
-            )
+            ),
+            RecordButton()
           ],
         ),
-      ),
-
-      floatingActionButton: const FloatingActionButton(
-        onPressed: null,
-        child: Icon(Icons.add),
       ),
     );
   }

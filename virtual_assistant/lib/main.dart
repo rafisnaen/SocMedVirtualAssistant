@@ -33,17 +33,18 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        //Top part of application
         backgroundColor: Colors.lightBlueAccent,
         title: const Text('Virtual Assistant'),
       ),
 
-      body: const Padding(
+      body: const Padding( //Gives padding so that content has space from screen edge
         padding: EdgeInsets.all(20),
         child:
         Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween, //Space between text and button
               children: [
                 Text("Activate overlay"),
                 ToggleSwitch()

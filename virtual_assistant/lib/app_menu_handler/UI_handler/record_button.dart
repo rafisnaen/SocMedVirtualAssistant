@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:virtual_assistant/voice_input_processor/vosk_handler.dart';
 
 class RecordButton extends StatefulWidget{
   const RecordButton({super.key});
@@ -12,11 +13,13 @@ class RecordButtonState extends State<RecordButton>{
   late bool isRecording;
   late String buttonText;
   late MaterialAccentColor buttonColor;
+  VoskHandler recorder = VoskHandler();
 
   //Initial state
   @override
   void initState() {
     super.initState();
+    recorder.initialize();
     isRecording = false;
     buttonText = "Record voice";
     buttonColor = Colors.lightBlueAccent;
@@ -26,15 +29,18 @@ class RecordButtonState extends State<RecordButton>{
   void record(){
     setState(() {
       if(!isRecording){
-        isRecording = true;
+        //Starts recording when clicked
+        recorder.startRecord();
         buttonText = "Stop recording";
         buttonColor = Colors.redAccent;
       }
       else{
-        isRecording = false;
+        //Stops recording when clicked again
+        recorder.stopRecord();
         buttonText = "Record voice";
         buttonColor = Colors.lightBlueAccent;
       }
+      isRecording = !isRecording;
     });
   }
 

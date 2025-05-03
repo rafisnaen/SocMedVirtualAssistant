@@ -7,7 +7,7 @@ class VoskHandler{
   late final model;
   late final transcriber;
 
-  late final voiceRecorder;
+  late var voiceRecorder;
 
   Future<void> instantiate() async{
     voskInstance = VoskFlutterPlugin.instance();

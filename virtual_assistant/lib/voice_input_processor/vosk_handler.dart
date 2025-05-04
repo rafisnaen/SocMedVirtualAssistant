@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:vosk_flutter/vosk_flutter.dart';
 import 'dart:convert';
-import 'package:virtual_assistant/app_menu_handler/UI_handler/text_transcript_displayer.dart';
 
 class VoskHandler{
   //Variables about plugin set up

@@ -13,14 +13,13 @@ class RecordButtonState extends State<RecordButton>{
   late bool isRecording;
   late String buttonText;
   late MaterialAccentColor buttonColor;
-  VoskHandler recorder = VoskHandler();
+  VoskHandler recorder = VoskHandler.getInstance();
 
   //Initial state
   @override
   void initState() {
     super.initState();
     recorder.initialize();
-    isRecording = false;
     buttonText = "Record voice";
     buttonColor = Colors.lightBlueAccent;
   }
@@ -28,7 +27,7 @@ class RecordButtonState extends State<RecordButton>{
   //Changes appearance and behavior of the button
   void record(){
     setState(() {
-      if(!isRecording){
+      if(!recorder.recording()){
         //Starts recording when clicked
         recorder.startRecord();
         buttonText = "Stop recording";
@@ -40,7 +39,7 @@ class RecordButtonState extends State<RecordButton>{
         buttonText = "Record voice";
         buttonColor = Colors.lightBlueAccent;
       }
-      isRecording = !isRecording;
+      // isRecording = !isRecording;
     });
   }
 

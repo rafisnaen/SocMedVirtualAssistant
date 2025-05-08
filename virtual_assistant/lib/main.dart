@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'app_menu_handler/UI_handler/toggle_switch.dart';
 import 'app_menu_handler/UI_handler/record_button.dart';
-
+import 'app_menu_handler/UI_handler/text_transcript_displayer.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,25 +38,26 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text('Virtual Assistant'),
       ),
 
-      body: const Padding( //Gives padding so that content has space from screen edge
-        padding: EdgeInsets.all(20),
+      body: Padding( //Gives padding so that content has space from screen edge
+        padding: const EdgeInsets.all(20),
         child:
         Column(
           children: [
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween, //Space between text and button
               children: [
                 Text("Activate overlay"),
-                ToggleSwitch()
+                ToggleSwitch() //Switch button
               ],
             ),
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Refresh overlay"),
+                Text("Refresh overlay"), //No functionality yet, just placeholder
               ],
             ),
-            RecordButton()
+            const RecordButton(), //Recording button
+            AudioInputDisplayer() //Transcript display area
           ],
         ),
       ),

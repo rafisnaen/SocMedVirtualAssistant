@@ -1,13 +1,28 @@
+import 'package:flutter/cupertino.dart';
 import 'package:vosk_flutter/vosk_flutter.dart';
+import 'dart:convert';
 
 class VoskHandler{
+  //Variables about plugin set up
   late final VoskFlutterPlugin voskInstance;
   late final String modelPath;
 
+  late bool isRecording; //Bool for button
+
+  //Variables about model
   late final model;
   late final transcriber;
 
+  //Variables about recording
   late var voiceRecorder;
+  final ValueNotifier<String> textResult = ValueNotifier<String>("");
+
+  static final VoskHandler handlerInstance = new VoskHandler();
+
+  //To ensure displayer and button accesses the same object
+  static VoskHandler getInstance(){
+    return handlerInstance;
+  }
 
   Future<void> instantiate() async{
     voskInstance = VoskFlutterPlugin.instance();
@@ -21,6 +36,8 @@ class VoskHandler{
     transcriber = await voskInstance.createRecognizer(
         model: model, sampleRate: 48000
     );
+
+    isRecording = false;
   }
 
   Future<void> initialize() async{
@@ -30,12 +47,35 @@ class VoskHandler{
 
   Future<void> startRecord() async{
     voiceRecorder = await voskInstance.initSpeechService(transcriber);
-    voiceRecorder.onResult().forEach((result) => print(result));
+    textResult.value = "";
+    voiceRecorder.onResult().forEach((result)
+      {
+        //result is a JSON, needs to be decoded to get the string
+        final tempRes = jsonDecode(result);
+        final tempResString = tempRes['text'];
+        if(tempResString != null && tempResString != ""){
+          textResult.value += " $tempResString";
+        }
+      }
+    );
     await voiceRecorder.start();
+    isRecording = true;
   }
 
   Future<void> stopRecord() async{
     await voiceRecorder.stop();
     voiceRecorder.dispose();
+    isRecording = false;
+
+    //Give delay to wait for text result
+    await Future.delayed(Duration(milliseconds: 250));
+  }
+
+  bool recording(){
+    return isRecording;
+  }
+
+  void setRecordState(bool recording){
+    isRecording = recording;
   }
 }

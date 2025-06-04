@@ -60,16 +60,6 @@ class _MyHomePageState extends State<MyHomePage> {
             const RecordButton(), //Recording button
             AudioInputDisplayer(key: AudioInputDisplayer.globalKey), //Transcript display area
 
-            ValueListenableBuilder<String>(
-              valueListenable: VoskHandler.getInstance().geminiReplyNotifier,
-              builder: (context, reply, _) {
-                return Text(
-                  reply.isEmpty ? "Belum ada balasan dari Gemini" : "Gemini: $reply",
-                  style: TextStyle(fontSize: 16, color: Colors.blueGrey),
-                );
-              },
-            ),
-
           ],
         ),
       ),

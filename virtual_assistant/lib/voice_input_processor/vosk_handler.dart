@@ -3,6 +3,8 @@ import 'package:vosk_flutter/vosk_flutter.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+
 
 
 
@@ -23,6 +25,8 @@ class VoskHandler{
 
   static final VoskHandler handlerInstance = new VoskHandler();
   final ValueNotifier<String> geminiReplyNotifier = ValueNotifier<String>("");
+  final FlutterTts flutterTts = FlutterTts();
+
 
 
   //To ensure displayer and button accesses the same object
@@ -57,6 +61,10 @@ class VoskHandler{
   Future<void> initialize() async{
     await instantiate();
     await loadModel();
+
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setSpeechRate(0.5);
+    await flutterTts.setPitch(1.0);
   }
 
   Future<void> startRecord() async{
@@ -91,7 +99,6 @@ class VoskHandler{
     await Future.delayed(Duration(milliseconds: 250));
 
     final inputText = textResult.value.trim();
-    final ValueNotifier<String> geminiReplyNotifier = ValueNotifier<String>("");
     if (inputText.isNotEmpty) {
       try {
         final response = await http.post(
@@ -105,8 +112,8 @@ class VoskHandler{
           final reply = result['response'];
           print("Gemini response: $reply");
 
-          VoskHandler.getInstance().geminiReplyNotifier.value = reply;
-
+          geminiReplyNotifier.value = reply;
+          await flutterTts.speak(reply);
           // Update UI atau ValueNotifier dengan reply ini
         } else {
           print("Error dari server Gemini: ${response.statusCode}");
@@ -121,8 +128,8 @@ class VoskHandler{
   bool recording(){
     return isRecording;
   }
-
   void setRecordState(bool recording){
     isRecording = recording;
   }
+
 }

@@ -22,6 +22,8 @@ class VoskHandler{
   final ValueNotifier<String> textResult = ValueNotifier<String>("");
 
   static final VoskHandler handlerInstance = new VoskHandler();
+  final ValueNotifier<String> geminiReplyNotifier = ValueNotifier<String>("");
+
 
   //To ensure displayer and button accesses the same object
   static VoskHandler getInstance(){
@@ -89,6 +91,7 @@ class VoskHandler{
     await Future.delayed(Duration(milliseconds: 250));
 
     final inputText = textResult.value.trim();
+    final ValueNotifier<String> geminiReplyNotifier = ValueNotifier<String>("");
     if (inputText.isNotEmpty) {
       try {
         final response = await http.post(
@@ -101,6 +104,8 @@ class VoskHandler{
           final result = jsonDecode(response.body);
           final reply = result['response'];
           print("Gemini response: $reply");
+
+          VoskHandler.getInstance().geminiReplyNotifier.value = reply;
 
           // Update UI atau ValueNotifier dengan reply ini
         } else {

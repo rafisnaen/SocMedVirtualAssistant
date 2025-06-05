@@ -1,23 +1,28 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_overlay_window/flutter_overlay_window.dart';
 
 class OverlayHandler {
-  static Future<void> showOverlay(String replyText) async {
-    if (!await FlutterOverlayWindow.isPermissionGranted()) {
+  static Future<void> showFloatingButton() async {
+    final isGranted = await FlutterOverlayWindow.isPermissionGranted();
+
+    if (!isGranted) {
       await FlutterOverlayWindow.requestPermission();
     }
 
-    await FlutterOverlayWindow.showOverlay(
-      height: 200,
-      width: 300,
-      alignment: OverlayAlignment.centerRight,
-      flag: OverlayFlag.defaultFlag,
-      visibility: NotificationVisibility.visibilityPublic,
-      enableDrag: true,
-    );
+    final granted = await FlutterOverlayWindow.isPermissionGranted();
+    if (granted) {
+      await FlutterOverlayWindow.showOverlay(
+        height: 200,
+        width: 200,
+        alignment: OverlayAlignment.centerRight,
+        flag: OverlayFlag.defaultFlag,
+        enableDrag: true,
+      );
+    } else {
+      print("Overlay permission not granted.");
+    }
   }
 
-  static Future<void> closeOverlay() async {
+  static Future<void> closeFloatingButton() async {
     await FlutterOverlayWindow.closeOverlay();
   }
 }

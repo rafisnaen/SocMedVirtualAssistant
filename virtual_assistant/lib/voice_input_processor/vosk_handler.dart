@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:virtual_assistant/app_menu_handler/UI_handler/overlay_handler.dart';
+import 'package:flutter_overlay_window/flutter_overlay_window.dart';
 
 
 class VoskHandler{
@@ -109,12 +110,16 @@ class VoskHandler{
         if (response.statusCode == 200) {
           final result = jsonDecode(response.body);
           final reply = result['response'];
-          OverlayHandler.showOverlay(reply);
           print("Gemini response: $reply");
 
           geminiReplyNotifier.value = reply;
           await flutterTts.speak(reply);
-          // Update UI atau ValueNotifier dengan reply ini
+          if (await FlutterOverlayWindow.isPermissionGranted()) {
+            FlutterOverlayWindow.showOverlay(); // tampilkan overlay
+          } else {
+            print("❗ Overlay permission not granted, skipping overlay.");
+          }
+
         } else {
           print("Error dari server Gemini: ${response.statusCode}");
         }

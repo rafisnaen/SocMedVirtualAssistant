@@ -6,12 +6,17 @@ import 'package:virtual_assistant/voice_input_processor/vosk_handler.dart';
 import 'overlay_main.dart';
 
 void main(List<String> args) {
+
   if (args.contains("overlay")) {
-    overlayMain();
+    runApp(const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: OverlayWidget(),
+    ));
   } else {
     runApp(const MyApp());
   }
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

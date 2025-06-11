@@ -4,7 +4,7 @@ Tech stack :
 - Python
 - Flutter
 <br>
-Others :
+Others :  
 - Vosk
 - Gemini
 - Pyttsx3

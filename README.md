@@ -2,7 +2,8 @@
 an AI Integrated mobile app which can provide elderly users with directions for using social media applications iwithin overlays.  
 Tech stack :
 - Python
-- Flutter  
+- Flutter
+<br>
 Others :
 - Vosk
 - Gemini

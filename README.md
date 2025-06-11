@@ -5,10 +5,10 @@ Tech stack :
 - Flutter
 <br>
 Others :
-<br> 
-- Vosk  
-- Gemini  
-- Pyttsx3  
+<br>
+- Vosk
+- Gemini
+- Pyttsx3
 <br>
 <br>
 Using Agile Development process model -> SCRUM approach  

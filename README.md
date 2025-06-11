@@ -4,10 +4,11 @@ Tech stack :
 - Python
 - Flutter
 <br>
-Others :  
-- Vosk
-- Gemini
-- Pyttsx3
+Others :
+<br> 
+- Vosk  
+- Gemini  
+- Pyttsx3  
 <br>
 <br>
 Using Agile Development process model -> SCRUM approach  

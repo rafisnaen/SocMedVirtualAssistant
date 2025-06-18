@@ -61,12 +61,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 ToggleSwitch() //Switch button
               ],
             ),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("Refresh overlay"), //No functionality yet, just placeholder
-              ],
-            ),
             const RecordButton(), //Recording button
             AudioInputDisplayer(key: AudioInputDisplayer.globalKey), //Transcript display area
 

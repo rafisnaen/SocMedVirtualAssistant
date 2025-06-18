@@ -6,8 +6,9 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:virtual_assistant/app_menu_handler/UI_handler/overlay_handler.dart';
 import 'package:flutter_overlay_window/flutter_overlay_window.dart';
+import 'dart:async';
 
-
+StreamSubscription<String>? _resultSubscription;
 class VoskHandler{
   //Variables about plugin set up
   late final VoskFlutterPlugin voskInstance;
@@ -76,23 +77,30 @@ class VoskHandler{
     }
     voiceRecorder = await voskInstance.initSpeechService(transcriber);
     textResult.value = "";
-    voiceRecorder.onResult().listen((result)
-      {
-        //result is a JSON, needs to be decoded to get the string
-        final url = Uri.parse("http://192.168.0.102:5000/ask_gemini");
-        final tempRes = jsonDecode(result);
-        final tempResString = tempRes['text'];
-        if(tempResString != null && tempResString != ""){
-          textResult.value += " $tempResString";
-        }
+    _resultSubscription = voiceRecorder.onResult().listen((result) {
+      final tempRes = jsonDecode(result);
+      final tempResString = tempRes['text'];
+      if (tempResString != null && tempResString != "") {
+        textResult.value += " $tempResString";
       }
+    }
     );
     await voiceRecorder.start();
     isRecording = true;
   }
 
   Future<void> stopRecord() async {
-    await voiceRecorder.stop();
+
+    await _resultSubscription?.cancel(); // Batalkan stream dulu
+    _resultSubscription = null;
+
+    try {
+      await voiceRecorder.stop();
+      print("✅ voiceRecorder stopped");
+    } catch (e) {
+      print("❗ voiceRecorder.stop() error: $e");
+    }
+
     voiceRecorder.dispose();
     isRecording = false;
 
@@ -101,8 +109,16 @@ class VoskHandler{
     final inputText = textResult.value.trim();
     if (inputText.isNotEmpty) {
       try {
+        // await voiceRecorder.stop();
+        // print("✅ Recorder stopped");
+        //
+        // voiceRecorder.dispose();
+        // print("✅ Recorder disposed");
+        //
+        // isRecording = false;
+        // print("✅ isRecording set to false");
         final response = await http.post(
-          Uri.parse("http://192.168.0.102:5000/api/chat"),  // sesuaikan endpoint
+          Uri.parse("http://192.168.100.56:5000/api/chat"),  // sesuaikan endpoint
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode({'prompt': inputText}),          // sesuaikan key jadi 'prompt'
         );

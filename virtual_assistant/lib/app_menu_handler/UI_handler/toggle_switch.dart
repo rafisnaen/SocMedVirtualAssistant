@@ -16,6 +16,16 @@ class _ToggleSwitchState extends State<ToggleSwitch> {
     return Switch(
       value: isOn,
       onChanged: (bool value) async {
+        if (value) {
+          final hasPermission = await OverlayHandler.requestPermission();
+          if (!hasPermission) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("Overlay permission required")),
+            );
+            return;
+          }
+        }
+
         setState(() {
           isOn = value;
         });
@@ -25,6 +35,7 @@ class _ToggleSwitchState extends State<ToggleSwitch> {
         } else {
           await OverlayHandler.closeFloatingButton();
         }
+
       },
     );
   }

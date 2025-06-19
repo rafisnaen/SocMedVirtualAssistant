@@ -11,6 +11,11 @@
         android:hardwareAccelerated="true">
 
         <service
+            android:name=".FloatingOverlayService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <service
             android:name="dev.arpan.overlay.OverlayService"
             android:exported="false"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE" />

@@ -1,28 +1,31 @@
-import 'package:flutter_overlay_window/flutter_overlay_window.dart';
+import 'package:flutter/services.dart';
 
 class OverlayHandler {
-  static Future<void> showFloatingButton() async {
-    final isGranted = await FlutterOverlayWindow.isPermissionGranted();
+  static const MethodChannel _channel =
+  MethodChannel('com.example.virtual_assistant/overlay');
 
-    if (!isGranted) {
-      await FlutterOverlayWindow.requestPermission();
+  static Future<bool> requestPermission() async {
+    try {
+      return await _channel.invokeMethod('requestPermission');
+    } on PlatformException catch (e) {
+      print("Failed to request permission: ${e.message}");
+      return false;
     }
+  }
 
-    final granted = await FlutterOverlayWindow.isPermissionGranted();
-    if (granted) {
-      await FlutterOverlayWindow.showOverlay(
-        height: 200,
-        width: 200,
-        alignment: OverlayAlignment.centerRight,
-        flag: OverlayFlag.defaultFlag,
-        enableDrag: true,
-      );
-    } else {
-      print("Overlay permission not granted.");
+  static Future<void> showFloatingButton() async {
+    try {
+      await _channel.invokeMethod('startOverlay');
+    } on PlatformException catch (e) {
+      print("Failed to show overlay: ${e.message}");
     }
   }
 
   static Future<void> closeFloatingButton() async {
-    await FlutterOverlayWindow.closeOverlay();
+    try {
+      await _channel.invokeMethod('stopOverlay');
+    } on PlatformException catch (e) {
+      print("Failed to close overlay: ${e.message}");
+    }
   }
 }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <!-- Expanded View (visible when clicked) -->
+    <LinearLayout
+        android:id="@+id/expandedView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/floating_bg"
+        android:visibility="gone"
+        android:padding="16dp">
+
+        <!-- Add your menu items here -->
+        <ImageView
+            android:id="@+id/menuItem1"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_menu_item1"
+            android:layout_margin="8dp"/>
+
+        <ImageView
+            android:id="@+id/menuItem2"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_menu_item2"
+            android:layout_margin="8dp"/>
+
+        <ImageView
+            android:id="@+id/menuItem3"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_menu_item3"
+            android:layout_margin="8dp"/>
+    </LinearLayout>
+
+    <!-- Collapsed View (default state) -->
+    <LinearLayout
+        android:id="@+id/collapsedView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/floatingIcon"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@drawable/ic_floating_icon"
+            android:background="@drawable/circle_bg"/>
+    </LinearLayout>
+</FrameLayout>
